@@ -3,7 +3,7 @@ kind: step-type
 metadata:
   name: rothandrew/pre-commit
   version: 0.0.1
-  isPublic: false
+  isPublic: true
   stage: incubating
   description: |
     Runs "pre-commit run -a" to validate that all pre-commit git hooks are passing. https://pre-commit.com/.
