@@ -5,7 +5,10 @@ metadata:
   version: 0.0.1
   isPublic: false
   stage: incubating
-  description: 'Runs "pre-commit run -a" to validate that all pre-commit git hooks are passing. https://pre-commit.com/'
+  description: |
+    Runs "pre-commit run -a" to validate that all pre-commit git hooks are passing. https://pre-commit.com/.
+    Uses Dad's Garage as the runtime container. https://github.com/dadsgarage/dadsgarage.
+    Submit issues in either the step repo or the Dad's Garage repo if you have problems.
   sources:
     - "https://github.com/RothAndrew/cf-step-pre-commit"
   maintainers:
@@ -24,12 +27,31 @@ metadata:
           title: Validating pre-commit hooks
           stage: Validate
 spec:
+  arguments: |
+    {
+      "definitions": {},
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "additionalProperties": false,
+      "patterns": [],
+      "required": [],
+      "properties": {
+        "working_directory": {
+          "type": "string",
+          "description": "The directory in which the pre-commit command is executed. It can be an explicit path in the container’s file system, or a variable that references another step. The default is /codefresh/volume/${{CF_REPO_NAME}}",
+          "examples": ["/codefresh/volume/${{CF_REPO_NAME}}/foo"],
+          "default": "/codefresh/volume/${{CF_REPO_NAME}}"
+        }
+      }
+    }
   steps:
     main:
       name: pre-commit
       image: dadsgarage/dadsgarage:0.2.2
       environment:
         - "PRE_COMMIT_HOME=/codefresh/volume/pre-commit-cache"
+        - "WORKING_DIRECTORY=${{working_directory}}"
       commands:
+        - cd ${WORKING_DIRECTORY}
         - pre-commit install
         - pre-commit run -a
