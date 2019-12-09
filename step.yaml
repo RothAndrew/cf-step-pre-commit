@@ -26,6 +26,8 @@ metadata:
           type: rothandrew/pre-commit
           title: Validating pre-commit hooks
           stage: Validate
+          arguments:
+            working_directory: "/codefresh/volume/${{CF_REPO_NAME}}"
 spec:
   arguments: |
     {
