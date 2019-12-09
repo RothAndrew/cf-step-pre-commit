@@ -1,0 +1,35 @@
+version: "1.0"
+kind: step-type
+metadata:
+  name: rothandrew/pre-commit
+  version: 0.0.1
+  isPublic: false
+  stage: incubating
+  description: 'Runs "pre-commit run -a" to validate that all pre-commit git hooks are passing. https://pre-commit.com/'
+  sources:
+    - "https://github.com/RothAndrew/cf-step-pre-commit"
+  maintainers:
+    - name: Andrew Roth
+  categories:
+    - git
+    - validate
+  official: false
+  tags:
+    - pre-commit
+  examples:
+    - description: example-1
+      workflow:
+        pre_commit:
+          type: rothandrew/pre-commit
+          title: Validating pre-commit hooks
+          stage: Validate
+spec:
+  steps:
+    main:
+      name: pre-commit
+      image: dadsgarage/dadsgarage:0.2.2
+      environment:
+        - "PRE_COMMIT_HOME=/codefresh/volume/pre-commit-cache"
+      commands:
+        - pre-commit install
+        - pre-commit run -a
