@@ -49,7 +49,7 @@ spec:
   steps:
     main:
       name: pre-commit
-      image: dadsgarage/dadsgarage:0.3.1
+      image: dadsgarage/dadsgarage:0.3.2
       environment:
         - "PRE_COMMIT_HOME=/codefresh/volume/pre-commit-cache"
         - "WORKING_DIRECTORY=${{working_directory}}"
