@@ -12,6 +12,6 @@ steps:
       git: github
       revision: "${{CF_REVISION}}"
   pre_commit:
-    type: rothandrew/pre-commit
+    type: rothandrew/pre-commit:0.0.3
     title: Validating pre-commit hooks
     stage: Validate
